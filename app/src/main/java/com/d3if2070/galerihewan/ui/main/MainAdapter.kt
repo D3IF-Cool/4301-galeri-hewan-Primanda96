@@ -2,12 +2,19 @@ package com.d3if2070.galerihewan.ui.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.d3if2070.galerihewan.databinding.ListItemBinding
 import com.d3if2070.galerihewan.model.Hewan
 
-class MainAdapter(private val data: List<Hewan>) :
-    RecyclerView.Adapter<MainAdapter.ViewHolder>()  {
+class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+
+    private val data = mutableListOf<Hewan>()
+    fun updateData(newData: List<Hewan>) {
+        data.clear()
+        data.addAll(newData)
+        notifyDataSetChanged()
+    }
 
 
     class ViewHolder(private val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root){
@@ -18,6 +25,8 @@ class MainAdapter(private val data: List<Hewan>) :
             imageView.setImageResource(hewan.imageResId)
         }
     }
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
