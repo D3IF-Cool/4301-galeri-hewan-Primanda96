@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import androidx.lifecycle.observe
 import com.d3if2070.galerihewan.databinding.FragmentMainBinding
+import com.d3if2070.galerihewan.network.ApiStatus
 
 class MainFragment: Fragment() {
 
@@ -44,5 +45,23 @@ class MainFragment: Fragment() {
             myAdapter.updateData(it)
         })
 
+        viewModel.getStatus().observe(viewLifecycleOwner, {
+            updateProgress(it)
+        })
+    }
+
+    private fun updateProgress(status: ApiStatus) {
+        when (status) {
+            ApiStatus.LOADING -> {
+                binding.progressBar.visibility = View.VISIBLE
+            }
+            ApiStatus.SUCCESS -> {
+                binding.progressBar.visibility = View.GONE
+            }
+            ApiStatus.FAILED -> {
+                binding.progressBar.visibility = View.GONE
+                binding.networkError.visibility = View.VISIBLE
+            }
+        }
     }
 }
