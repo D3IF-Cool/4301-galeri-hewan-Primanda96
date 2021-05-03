@@ -21,7 +21,6 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
         fun bind(hewan: Hewan) = with(binding){
             namaTextView.text = hewan.nama
             latinTextView.text = hewan.namaLatin
-            jenisTextView.text = hewan.jenis
             imageView.setImageResource(hewan.imageResId)
         }
     }
